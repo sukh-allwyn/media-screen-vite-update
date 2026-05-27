@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>The National Lottery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+      html,
+      body {
+        background-color: #000000;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      
+      body {
+        display: none;
+      }
+
+      .screen {
+        border: 2px solid black;
+        width: 1920px;
+        height: 1080px;
+        display: block;
+        clear: both;
+        position: absolute;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .lo .nextDrawDayContainer,
+      .em .nextDrawDayContainer,
+      .sfl .nextDrawDayContainer {
+        width: 1920px;
+        height: 1080px;
+      }
+
+      /******************************************************************************************************************************* 
+      EXTRA EXTRA SMALL TEST SCREEN STYLES - 720x480pm
+      ********************************************************************************************************************************/
+      .screen-xsm-fix2 {
+        width: 720px;
+        height: 480px;
+      }
+
+      .lo .nextDrawDayContainer.extraSmallScreen-fix2,
+      .em .nextDrawDayContainer.extraSmallScreen-fix2, 
+      .sfl .nextDrawDayContainer.extraSmallScreen-fix2 {
+        width: 720px;
+        height: 480px;
+        background-size: 100% 100%;
+        background-position: center;
+      }
+
+      .screen-xsm-fix2.lo .jackpotContainer {
+        font-size: 75px;
+        top: 60%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .screen-xsm.em .jackpotContainer {
+        font-size: 130px;
+        top: 40%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .screen-xsm-fix2 .testData {
+        width: 70%;
+      }
+
+      /* SFL */
+      /* =============================================== */
+      .sfl.sun .nextDrawDayContainer.extraSmallScreen-fix2,
+      .sfl.mon .nextDrawDayContainer.extraSmallScreen-fix2,
+      .sfl.thurs .nextDrawDayContainer.extraSmallScreen-fix2 {
+        background-image: url("images/sfl_draw_default_800x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* LO */
+      /* =============================================== */
+      .lo.sat .nextDrawDayContainer.extraSmallScreen-fix2,
+      .lo.wed .nextDrawDayContainer.extraSmallScreen-fix2 {
+        background-repeat: no-repeat;
+      }
+
+      .lo.wed .nextDrawDayContainer.extraSmallScreen-fix2 {
+        background-image: url("images/lo_draw_wednesday_800x600.jpg")
+      }
+
+      .lo.sat .nextDrawDayContainer.extraSmallScreen-fix2 {
+        background-image: url("images/lo_draw_saturday_800x600.jpg")
+      }
+
+      /* EM */
+      /* =============================================== */
+
+      .em.tue .nextDrawDayContainer.extraSmallScreen-fix2,
+      .em.fri .nextDrawDayContainer.extraSmallScreen-fix2 {
+        background-repeat: no-repeat;
+      }
+
+      .em.tue .nextDrawDayContainer.extraSmallScreen-fix2{
+        background-image: url("images/em_draw_tuesday_800x600.jpg");
+      }
+
+      .em.fri .nextDrawDayContainer.extraSmallScreen-fix2 {
+        background-image: url("images/em_draw_friday_800x600.jpg");
+      }
+
+      /******************************************************************************************************************************* 
+      EXTRA SMALL SCREEN STYLES FIX - 1360x768px
+      ********************************************************************************************************************************/
+      .screen-xsm-fix {
+        width: 1360px;
+        height: 768px;
+      }
+
+      .lo .nextDrawDayContainer.extraSmallScreen-fix,
+      .em .nextDrawDayContainer.extraSmallScreen-fix, 
+      .sfl .nextDrawDayContainer.extraSmallScreen-fix {
+        width: 1360px;
+        height: 768px;
+        background-size: 100% 100%;
+        background-position: center;
+      }
+
+    
+      .screen-xsm-fix.lo .jackpotContainer {
+        font-size: 120px;
+        top: 60%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .screen-xsm-fix.em .jackpotContainer {
+        font-size: 170px;
+        top: 40%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      /* SFL */
+      /* =============================================== */
+      .sfl.sun .nextDrawDayContainer.extraSmallScreen-fix,
+      .sfl.mon .nextDrawDayContainer.extraSmallScreen-fix,
+      .sfl.thurs .nextDrawDayContainer.extraSmallScreen-fix {
+        background-image: url("images/sfl_draw_default_800x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* LO */
+      /* =============================================== */
+      .lo.sat .nextDrawDayContainer.extraSmallScreen-fix,
+      .lo.wed .nextDrawDayContainer.extraSmallScreen-fix {
+        background-repeat: no-repeat;
+      }
+
+      .lo.wed .nextDrawDayContainer.extraSmallScreen-fix {
+        background-image: url("images/lo_draw_wednesday_800x600.jpg")
+      }
+
+      .lo.sat .nextDrawDayContainer.extraSmallScreen-fix {
+        background-image: url("images/lo_draw_saturday_800x600.jpg")
+      }
+
+      /* EM */
+      /* =============================================== */
+
+      .em.tue .nextDrawDayContainer.extraSmallScreen-fix,
+      .em.fri .nextDrawDayContainer.extraSmallScreen-fix {
+        background-repeat: no-repeat;
+      }
+
+      .em.tue .nextDrawDayContainer.extraSmallScreen-fix{
+        background-image: url("images/em_draw_tuesday_800x600.jpg");
+      }
+
+      .em.fri .nextDrawDayContainer.extraSmallScreen-fix {
+        background-image: url("images/em_draw_friday_800x600.jpg");
+      }
+
+      /******************************************************************************************************************************* 
+      EXTRA SMALL SCREEN STYLES - 800x600p
+      ********************************************************************************************************************************/
+      .screen-xsm {
+        width: 800px;
+        height: 600px;
+      }
+
+      .lo .nextDrawDayContainer.extraSmallScreen,
+      .em .nextDrawDayContainer.extraSmallScreen, 
+      .sfl .nextDrawDayContainer.extraSmallScreen {
+        width: 800px;
+        height: 600px;
+        background-size: contain;
+        background-position: center;
+      }
+
+      .screen-xsm.lo .jackpotContainer {
+        font-size: 81px;
+        top: 59%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .screen-xsm.em .jackpotContainer {
+        font-size: 130px;
+        top: 40%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+      .screen-xsm .testData {
+        width: 70%;
+      }
+
+      /* SFL */
+      /* =============================================== */
+      .sfl.sun .nextDrawDayContainer.extraSmallScreen,
+      .sfl.mon .nextDrawDayContainer.extraSmallScreen,
+      .sfl.thurs .nextDrawDayContainer.extraSmallScreen {
+        background-image: url("images/sfl_draw_default_800x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* LO */
+      /* =============================================== */
+      .lo.sat .nextDrawDayContainer.extraSmallScreen,
+      .lo.wed .nextDrawDayContainer.extraSmallScreen {
+        background-repeat: no-repeat;
+      }
+
+      .lo.wed .nextDrawDayContainer.extraSmallScreen {
+        background-image: url("images/lo_draw_wednesday_800x600.jpg")
+      }
+
+      .lo.sat .nextDrawDayContainer.extraSmallScreen {
+        background-image: url("images/lo_draw_saturday_800x600.jpg")
+      }
+
+      /* EM */
+      /* =============================================== */
+
+      .em.tue .nextDrawDayContainer.extraSmallScreen,
+      .em.fri .nextDrawDayContainer.extraSmallScreen {
+        background-repeat: no-repeat;
+      }
+
+      .em.tue .nextDrawDayContainer.extraSmallScreen{
+        background-image: url("images/em_draw_tuesday_800x600.jpg");
+      }
+
+      .em.fri .nextDrawDayContainer.extraSmallScreen {
+        background-image: url("images/em_draw_friday_800x600.jpg");
+      }
+
+      /******************************************************************************************************************************* 
+      SMALL SCREEN STYLES - 1024x600px
+      ********************************************************************************************************************************/
+      .screen-sm {
+        width: 1024px;
+        height: 600px;
+      }
+
+      .lo .nextDrawDayContainer.smallScreen,
+      .em .nextDrawDayContainer.smallScreen, 
+      .sfl .nextDrawDayContainer.smallScreen {
+        width: 1024px;
+        height: 600px;
+        background-size: contain;
+        background-position: center;
+      }
+
+      .screen-sm.lo .jackpotContainer {
+        font-size: 110px;
+        top: 66%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .screen-sm.em .jackpotContainer  {
+        font-size: 160px;
+        top: 45%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      /* SFL */
+      /* =============================================== */
+      .sfl.sun .nextDrawDayContainer.smallScreen,
+      .sfl.mon .nextDrawDayContainer.smallScreen,
+      .sfl.thurs .nextDrawDayContainer.smallScreen {
+        background-image: url("images/sfl_draw_default_1024x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* LO */
+      /* =============================================== */
+      .lo.wed .nextDrawDayContainer.smallScreen {
+        background-image: url("images/lo_draw_wednesday_1024x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      .lo.sat .nextDrawDayContainer.smallScreen {
+        background-image: url("images/lo_draw_saturday_1024x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* EM */
+      /* =============================================== */
+      .em.tue .nextDrawDayContainer.smallScreen {
+        background-image: url("images/em_draw_tuesday_1024x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      .em.fri .nextDrawDayContainer.smallScreen {
+        background-image: url("images/em_draw_friday_1024x600.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /******************************************************************************************************************************* 
+      LARGE SCREEN STYLES - 1920x1080px
+      ********************************************************************************************************************************/
+
+      .screen-lg {
+        width: 1920px;
+        height: 1080px;
+      }
+
+      /* SFL */
+      /* =============================================== */
+      .sfl.sun .nextDrawDayContainer.largeScreen,
+      .sfl.mon .nextDrawDayContainer.largeScreen,
+      .sfl.thurs .nextDrawDayContainer.largeScreen {
+        background-image: url("images/sfl_draw_default_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* LO */
+      /* =============================================== */      
+      .lo.sat .nextDrawDayContainer {
+        background-image: url("images/lo_draw_saturday_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+
+      .lo.wed .nextDrawDayContainer {
+        background-image: url("images/lo_draw_wednesday_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /* EM */
+      /* =============================================== */      
+      .em.fri .nextDrawDayContainer {
+        background-image: url("images/em_draw_friday_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+
+      .em.tue .nextDrawDayContainer {
+        background-image: url("images/em_draw_tuesday_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+
+      /******************************************************************************************************************************* 
+      ERROR SCREEN STYLES
+      ********************************************************************************************************************************/
+      #error-screen[class*="screen-"] {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      #error-screen[class*="screen-"]::after {
+        /* screen size mark */
+				content: '';
+				position: absolute;
+				width: 5px;
+				height: 5px;
+				bottom: 0;
+				right: 0;
+				background-color: #000080;
+      }
+
+      /* EM ERROR SCREENS */
+      /* =============================================== */
+      #error-screen.screen-lg.em {
+        background-image: url("images/em_draw_default_1920x1080.jpg");
+      }
+
+      #error-screen.screen-sm.em { 
+        background-image: url("images/em_draw_default_1024x600.jpg");
+      }
+
+      #error-screen.screen-xsm.em {
+        background-image: url("images/em_draw_default_800x600.jpg");
+      }
+
+      #error-screen.screen-xsm-fix.em,
+      #error-screen.screen-xsm-fix2.em {
+        background-image: url("images/em_draw_default_800x600.jpg");
+        background-size: 100% 100%;
+      }
+      /* =============================================== */
+
+      /* LO ERROR SCREENS */
+      /* =============================================== */
+      #error-screen.screen-lg.lo {
+        background-image: url("images/lo_draw_default_1920x1080.jpg");
+      }
+
+      #error-screen.screen-sm.lo {
+        background-image: url("images/lo_draw_default_1024x600.jpg");
+      }
+
+      #error-screen.screen-xsm.lo {
+        background-image: url("images/lo_draw_default_800x600.jpg");
+      }
+
+      #error-screen.screen-xsm-fix.lo,
+      #error-screen.screen-xsm-fix2.lo {
+        background-image: url("images/lo_draw_default_800x600.jpg");
+        background-size: 100% 100%;
+      }
+      /* =============================================== */
+
+      /* dataError backup images */
+      .lo.sat.dataError .nextDrawDayContainer,
+      .lo.wed.dataError .nextDrawDayContainer {
+        background-image: url("images/lo_draw_default_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+
+      .em.fri.dataError .nextDrawDayContainer,
+      .em.tue.dataError .nextDrawDayContainer {
+        background-image: url("images/em_draw_default_1920x1080.jpg");
+        background-repeat: no-repeat;
+      }
+      
+      /* ========================================================================================================================= */
+      /* ========================================================================================================================= */
+
+      .jackpotContainer {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+        font-family: EffraHeavy;
+        font-weight: bold;
+      }
+
+      .lo .jackpotContainer {
+        color: #ffffff;
+        text-shadow: -2px -2px 0 #990e2c, 2px -2px 0 #990e2c, -2px 2px 0 #990e2c,
+          2px 2px 0 #990e2c;
+      }
+
+      .em .jackpotContainer {
+        color: #000080;
+        text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+          2px 2px 0 #fff;
+      }
+
+      .lo .jackpotContainer {
+        font-size: 120px;
+        top: 100px;
+        height: 320px;
+        line-height: 320px;
+      }
+
+      .em .jackpotContainer {
+        font-size: 120px;
+        top: 80px;
+        height: 260px;
+        line-height: 260px;
+      }
+
+      .lo .jackpotContainer {
+        font-size: 240px;
+        /* top: 180px; */
+        top: 445px;
+        height: 540px;
+        line-height: 540px;
+      }
+
+      .em .jackpotContainer {
+        font-size: 240px;
+        /* top: 180px; */
+        top: 210px;
+        height: 420px;
+        line-height: 420px;
+      }
+
+      @font-face {
+        font-family: "EffraHeavy";
+        src: url("fonts/tnl_effra_he.eot");
+        src: url("fonts/tnl_effra_he.eot?#iefix") format("embedded-opentype"),
+          url("fonts/tnl_effra_he.woff") format("application/x-font-woff"),
+          url("fonts/tnl_effra_he.ttf") format("truetype"),
+          url("fonts/tnl_effra_he.svg#svgFontName") format("svg");
+      }
+      @font-face {
+        font-family: "EffraRegular";
+        src: url("fonts/tnl_effra_rg.eot");
+        src: url("fonts/tnl_effra_rg.eot?#iefix") format("embedded-opentype"),
+          url("fonts/tnl_effra_rg.woff") format("application/x-font-woff"),
+          url("fonts/tnl_effra_rg.ttf") format("truetype"),
+          url("fonts/tnl_effra_rg.svg#svgFontName") format("svg");
+      }
+
+      .nextDrawDayContainer::after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        bottom: 0;
+        right: 0;
+        background-color: #000080;
+      }
+
+    </style>
+
+    <script type="text/javascript" src="libs/jquery.min.js"></script>
+
+    <script>
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ VARS /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      var currentReleaseVersion = '14.11.25'; // display what release version is currently being used.
+
+      var isLive; // Detects if not Windows/Mac and loads json data from correct source.
+
+      var unixTime; // used to store current time.
+      var dbgName; // used to store LO || EM.
+      var nextDrawDay;
+
+      var _url;
+      var loJSONUrl = "/Jackpotinfo_Lotto.json";
+      var baseUrl = "__VITE_JACKPOT_URL__";
+      var emJSONUrl =  baseUrl + 'Jackpotinfo_EuroMillions.json';
+      // var loJSONUrlLive =
+      //   "http://localhost:8000/assets/jackpot/Jackpotinfo_Lotto.json";
+      var emJSONUrlLive =
+        baseUrl +  "/Jackpotinfo_EuroMillions.json";
+      var loJSONUrl = baseUrl + "Jackpotinfo_Lotto.json";
+      /*/ TEST DATA /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      var useTestData = false; // uses the data below
+      var testDayNum = 0; // 0 Sunday, 1 Mon, 2 Tues, 3 Wed, 4 Thu, 5 Fri, 6 Sat.
+      var testHours = 19; // 1930 is draw break.
+      var testMins = 30; // 1931 exceeds draw break.
+      var testJSON =
+        '{ "drawName": "Euromillions-14.11.2026 19:25", "estimatedTotalPrizeAmount": 99000000 }'; // dummy jackpot data.
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ INIT /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function init() {
+        isLiveCheck();
+        setScreens();
+        getTimeDate();
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ SCREEN /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function setScreens() {
+  
+        var screenSize;
+        var w = $(window).width();
+        var h = $(window).height();
+
+        if (w === 720 && h === 480) {
+          screenSize = "xsmall-fix2";
+          console.log("screenSize:", screenSize, "=== 720x480px");
+          $(".nextDrawDayContainer").addClass("extraSmallScreen-fix2");
+          $(".screen").addClass("screen-xsm-fix2");
+
+        } else if (w === 1360 && h === 768) {
+          screenSize = "xsmall-fix";
+          console.log("screenSize:", screenSize, "=== 1360x768px");
+          $(".nextDrawDayContainer").addClass("extraSmallScreen-fix");
+          $(".screen").addClass("screen-xsm-fix");
+
+        } else if (w <= 800) {
+          screenSize = "xsmall";
+          console.log("screenSize:", screenSize, "<= 800px");
+          $(".nextDrawDayContainer").addClass("extraSmallScreen");
+          $(".screen").addClass("screen-xsm");
+        } else if (w <= 1024) {
+          screenSize = "small";
+          console.log("screenSize:", screenSize, "<= 1024px");
+          $(".nextDrawDayContainer").addClass("smallScreen");
+          $(".screen").addClass("screen-sm");
+        } else if (w > 1024 ) {
+          screenSize = "large";
+          console.log("screenSize:", screenSize, "> 1024px");
+          $(".nextDrawDayContainer").addClass("largeScreen");
+          $(".screen").addClass("screen-lg");
+        }
+
+        hideAllScreens();
+        $("body").show();
+        changeScreen("INIT");
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ FUNCTIONS /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function isLiveCheck() {
+        var ua = (navigator.userAgent || "").toLowerCase();
+        return true
+        console.log("User Agent:", ua);
+        if (ua === "") {
+          console.log("User Agent === null or undefined");
+          // if no ua exists - isLive = false
+          isLive = false;
+        } else {
+          // if ua exists & doesn't include mac / windows - isLive = true
+          isLive = !(ua.indexOf("mac") > -1 || ua.indexOf("windows") > -1);
+          console.log("isLiveCheck:", isLive);
+        }
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function getTimeDate() {
+        var funcName = "getTimeDate()";
+
+        var d = new Date();
+        unixTime = Number(d.valueOf());
+
+        // MONTH: DATA
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var fullDate =
+          (day < 10 ? "0" : "") +
+          day +
+          "/" +
+          (month < 10 ? "0" : "") +
+          month +
+          "/" +
+          d.getFullYear();
+
+        // DAY: DATA
+        var dayNum = d.getDay();
+        var weekday = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        var dayLong = weekday[d.getDay()];
+
+        // TIME: HOURS MINS
+        var hours = d.getHours();
+        var mins = d.getMinutes();
+
+        // IF USING TEST DATA
+        if (useTestData) {
+          dayNum = testDayNum;
+          hours = testHours;
+          mins = testMins;
+        }
+
+        // DRAW BREAK
+        var beforeDrawBreak = false;
+        var actualMinutes = hours * 60 + mins;
+        var drawBreakMinutes = 1170; // drawBreakMinutes = 19*60 + 30;
+        if (actualMinutes < drawBreakMinutes) {
+          beforeDrawBreak = true;
+        }
+
+        // DISPLAY SCHEDULE
+        dbgName = "";
+        var isTonight = false;
+        switch (dayNum) {
+          case 0: // Sunday
+            dbgName = "sfl";
+            nextDrawDay = "mon";
+            break;
+          case 1: // Monday
+            if (beforeDrawBreak) {
+              dbgName = "sfl";
+              isTonight = true;
+              nextDrawDay = "thurs";
+            } else {
+              dbgName = "em";
+              nextDrawDay = "tue";
+            }
+            break;
+          case 2: // Tues
+            if (beforeDrawBreak) {
+              dbgName = "em";
+              isTonight = true;
+              nextDrawDay = "tue";
+            } else {
+              dbgName = "lo";
+              nextDrawDay = "wed";
+            }
+            break;
+          case 3: // Weds
+            if (beforeDrawBreak) {
+              dbgName = "lo";
+              isTonight = true;
+              nextDrawDay = "wed";
+            } else {
+              dbgName = "sfl";
+              nextDrawDay = "thurs";
+            }
+            break;
+          case 4: // Thurs
+            if (beforeDrawBreak) {
+              dbgName = "sfl";
+              isTonight = true;
+              nextDrawDay = "mon";
+            } else {
+              dbgName = "em";
+              nextDrawDay = "fri";
+            }
+            break;
+          case 5: // Fri
+            if (beforeDrawBreak) {
+              dbgName = "em";
+              isTonight = true;
+              nextDrawDay = "fri";
+            } else {
+              dbgName = "lo";
+              nextDrawDay = "sat";
+            }
+            break;
+          case 6: // Sat
+            if (beforeDrawBreak) {
+              dbgName = "lo";
+              isTonight = true;
+              nextDrawDay = "sat";
+            } else {
+              dbgName = "sfl";
+              nextDrawDay = "mon";
+            }
+            break;
+        }
+
+        $(".screen").addClass(dbgName);
+        $(".screen").addClass(nextDrawDay);
+
+        // doesn't require jackpot data from JSON file
+        if (dbgName === 'sfl') {
+          $('html').css("background-color", "#ffffff");
+          console.log('Skipping AJAX request * no JSON data required *');
+          return
+        }
+
+        if (dbgName == "lo") {
+          _url = loJSONUrl;
+          $("html").css("background-color", "#e5013b");
+        } else if (dbgName === "em") {
+          _url = emJSONUrl;
+          $("html").css("background-color", "#f8b400");
+        } else {
+          console.log("getTimeDate() - loadErrorState()");
+          loadErrorState(funcName);
+        }
+
+        getJSONData(dbgName);
+
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function getJSONData(dbgName) {
+        console.log("getJSONData(dbgName):", dbgName);
+        var funcName = "getJSONData(dbgName)";
+
+        if (dbgName == "lo") {
+           _url = loJSONUrl;
+        } else if (dbgName == "em") {
+           _url = emJSONUrl;
+        } else {
+          loadErrorState(funcName);
+        }
+
+    
+          console.log('ajax - Start');
+
+          $.ajax({
+            url: _url,
+            dataType: "json",
+            cache: false,
+
+            success: function (data) {
+              try {
+                if (!dataChecks(data)) {
+                  loadErrorState(funcName);
+                } else {
+                  console.log('ajax - Success');
+                  loadJSONData(data);
+                }
+              } catch (error) {
+                console.error('Error processing AJAX success response:', error);
+                loadErrorState(funcName);
+              }
+            },
+
+            error: function (data) {
+              try {
+                console.log('ajax - Error');
+                loadErrorState(funcName); 
+              } catch (error) {
+                console.error('Error processing AJAX success response:', error);
+                loadErrorState(funcName);
+              }
+            },
+
+          });
+    
+
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function loadJSONData(data) {
+        var funcName = "loadJSONData(data)";
+
+        console.log("loadJSONData(data):", data);    
+        
+        var drawJackpot = Number(data.estimatedTotalPrizeAmount);
+        console.log("drawJackpot: " + drawJackpot);
+
+        // DISPLAY LO or EM JACKPOT
+        if (dbgName == "em") {
+          // format jackpot to round down to nearest million // eg jackpot of 1999999 = £1M*
+          if (Number(drawJackpot) > 1000000) {
+            $(".jackpotContainer").append(
+              "£" + formattedEMJackpot(drawJackpot) + "M*"
+            );
+          } else {
+            loadErrorState(funcName);
+          }
+        } else if (dbgName == "lo") {
+          // format jackpot to round down to nearest 1 decimal
+          if (Number(drawJackpot) > 1000000) {
+            $(".jackpotContainer").append(
+              "£" + formattedLOJackpot(drawJackpot) + "M*"
+            );
+          }
+        } else {
+          loadErrorState(funcName);
+        }
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function dataChecks(data) {
+        console.log('dataChecks(data)');
+
+        if (!data || 
+            data.estimatedTotalPrizeAmount === null || 
+            data.estimatedTotalPrizeAmount === 'null' || 
+            data.estimatedTotalPrizeAmount === '' || 
+            data.estimatedTotalPrizeAmount === undefined || 
+            data.estimatedTotalPrizeAmount >= 1000000000 || 
+            data.estimatedTotalPrizeAmount <= 1000000) {
+          return false;
+        } else if (!data.drawName || !data.estimatedTotalPrizeAmount) {
+          return false;
+        } 
+
+        // Extract the date and time part from drawName
+        var drawDateTimeStr = data.drawName.split('-')[1].trim();
+        console.log('drawDateTimeStr: ', drawDateTimeStr);
+
+        var parts = drawDateTimeStr.split(' ');
+        var dateParts = parts[0].split('.');
+        var timeParts = parts[1].split(':');
+
+        // creates a JS Date() object
+        var drawDate = new Date(
+          dateParts[2], // Year
+          dateParts[1] - 1, // Month (0-based)
+          dateParts[0], // Day
+          timeParts[0], // Hours
+          timeParts[1] // Minutes
+        );
+
+        console.log('drawDate:', drawDate);
+
+        var currentDate = new Date();
+        console.log('currentDate: ', currentDate)
+
+        // UNIX COMPARISON 
+        // -------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
+        // Convert the drawDate to a Unix timestamp
+        // var unixDrawDate = drawDate.getTime();
+        // console.log('unixDrawDate:', unixDrawDate);
+
+        // // Check if the draw date has occurred in the past
+        // var unixCurrentDate = currentDate.getTime();
+        // console.log('currentDate: ', currentDate);
+        // console.log('unixCurrentDate: ', unixCurrentDate);
+
+        // // Compare Unix timestamps
+        // if (unixDrawDate < unixCurrentDate) {
+        //   console.log('ERROR: UNIX Draw date has occurred in the past');
+        //   console.log('Draw date:', drawDate);
+        //   console.log('Current date:', currentDate);
+        //   return false;
+        // }
+        // console.log('SUCCESS: UNIX Draw date');
+        // -------------------------------------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------------------------------------
+        
+        // if drawDateTimeStr or drawDate = NaN
+        if (isNaN(drawDate) || isNaN(currentDate)) {
+          console.log('isNaN(drawDate) || isNaN(currentDate)');
+          return false;
+        } 
+        
+        // Check if the draw date has occurred in the past
+        if (drawDate < currentDate) {
+          console.log('ERROR: Draw date has occurred in the past');
+          console.log('Draw date:', drawDate);
+          console.log('Current date:', currentDate);
+          return false;
+        }
+
+        console.log('dataChecks(data) return = true');
+        return true;
+
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ ERROR /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function loadErrorState(funcName) {
+
+        $("#init-screen").hide();
+
+        changeScreen("ERROR");
+
+        if (dbgName == 'lo') {
+          $("html").css("background-color", "#e5013b");
+        } else {
+          $("html").css("background-color", "#f8b400");
+        }
+       
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ HELPER /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function formattedLOJackpot(value) {
+        return parseInt("" + (value / 1000000) * 10) / 10;
+      }
+
+      function formattedEMJackpot(value) {
+        return Math.floor(value / 1000000);
+      }
+
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      /*/ SCREEN /*/
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+      function changeScreen(scrn) {
+        switch (scrn) {
+          case "INIT":
+            $("#init-screen").show();
+            break;
+
+          case "ERROR":
+            $("#error-screen").show();
+            break;
+        }
+      }
+
+      function hideAllScreens() {
+        console.log("hideAllScreens()");
+        $(".screen").hide();
+      }
+
+    </script>
+  </head>
+
+  <body onload="init();">
+    <!------------->
+    <!-- DEFAULT -->
+    <!------------->
+    
+    <div id="init-screen" class="screen">
+      <div class="jackpotContainer"></div>
+      <div class="nextDrawDayContainer"></div>
+    </div>
+
+    <div id="error-screen" class="screen">
+      <h1></h1>
+    </div>
+
+    <!---------------->
+    <!--- SCREENS ---->
+    <!---------------->
+  </body>
+</html>
