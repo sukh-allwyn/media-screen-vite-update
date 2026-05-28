@@ -42,3 +42,4 @@ Because these legacy folders bypass standard modern single-page-application (SPA
 2. Open your browser and navigate directly to the target folder subpath:
 
     Jackpot Screen: http://localhost:5173/jackpot/
+    test
