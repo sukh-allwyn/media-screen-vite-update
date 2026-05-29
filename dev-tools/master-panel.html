@@ -100,8 +100,11 @@
       <label style="display: block; margin-bottom: 6px; color: #aaa"
         >Open Canvas Panel:</label
       >
-      <div style="display: flex; flex-direction: column; gap: 6px">
-        <button
+      <div
+        id="btn-container"
+        style="display: flex; flex-direction: column; gap: 6px"
+      >
+        <!--       <button
           onclick="globalLaunchScreen(3840, 2160)"
           style="
             background: #333;
@@ -190,7 +193,7 @@
           "
         >
           📺 XXS Test Screen (720x480)
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -230,7 +233,6 @@
         `width=${width},height=${height},resizable=yes,scrollbars=yes`,
       );
     }
-
     const screenSizes = [
       { w: 3840, h: 2160, title: "📺 4K Signage (3840x2160)" },
       { w: 1920, h: 1080, title: "📺 Standard HD (1920x1080)" },
@@ -239,5 +241,27 @@
       { w: 800, h: 600, title: "📺 XS (800x600)" },
       { w: 720, h: 480, title: "📺 XXS Test Screen (720x480)" },
     ];
+
+    const container = document.getElementById("btn-container");
+
+    for (let i = 0; i < screenSizes.length; i++) {
+      const screen = screenSizes[i];
+
+      const btn = document.createElement("button");
+      btn.textContent = screen.title;
+      btn.onclick = function () {
+        globalLaunchScreen(screen.w, screen.h);
+      };
+
+      btn.style.cssText = `background: #333;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 11px;`;
+      container.appendChild(btn);
+    }
   </script>
 </g-dev-body>
